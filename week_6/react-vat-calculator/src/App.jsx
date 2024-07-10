@@ -27,7 +27,7 @@ function App() {
           onChange={(event) => onChangeHanlder(event)}
         ></input>
         <h1>My A = {a === "" ? "0" : a}</h1>
-        <h1>VAT = {vat.toFixed(2)}</h1>
+        <h1>VAT = {Math.round(vat * 100) / 100}</h1>
 
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
