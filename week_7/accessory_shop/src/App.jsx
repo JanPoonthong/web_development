@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import accessoryData from "./accessory.json";
 import DataTable from "./components/DataTable";
+import { Button } from "react-bootstrap";
 
 function App() {
   const quantityRef = useRef();
   const productRef = useRef();
   const [price, setPrice] = useState(accessoryData[0].price);
-  const [selectedItems, setSelectedItems] = useState([{}])
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const handleSubmit = () => {
     const productID = parseInt(productRef.current.value);
@@ -16,10 +17,10 @@ function App() {
 
     const order = {
       ...product,
-      quantity: quantityRef.current.value
-    }
+      quantity: quantityRef.current.value,
+    };
 
-    setSelectedItems(oldState => [...oldState, order])
+    setSelectedItems((oldState) => [...oldState, order]);
     setPrice(product.price);
   };
 
@@ -32,28 +33,34 @@ function App() {
   };
 
   return (
-    <>
-      <label>Product: </label>
-      <select ref={productRef} onChange={updatePrice}>
-        {accessoryData.map((accessory, index) => {
-          return (
-            <option key={index} value={accessory.id}>
-              {accessory.name}
-            </option>
-          );
-        })}
-      </select>
+    <div className="container">
+      <div className="row">
+        <div className="col-2"> Product: </div>
 
-      <br />
+        <div className="col-10">
+          <select ref={productRef} onChange={updatePrice}>
+            {accessoryData.map((accessory, index) => {
+              return (
+                <option key={index} value={accessory.id}>
+                  {accessory.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
 
-      <p>Price: {price}</p>
+        <div className="col-2"> Price: </div>
+        <div className="col-10"> {price} </div>
 
-      <label>Quantity: </label>
-      <input type="number" ref={quantityRef}></input>
-      <button onClick={handleSubmit}>Submit</button>
+        <div className="col-2"> Quantity: </div>
+
+        <div className="col-10"></div>
+        <input type="number" ref={quantityRef}></input>
+      </div>
+      <Button onClick={handleSubmit}>Submit</Button>
 
       <DataTable data={selectedItems}></DataTable>
-    </>
+    </div>
   );
 }
 
