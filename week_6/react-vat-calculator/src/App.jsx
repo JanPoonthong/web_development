@@ -8,11 +8,11 @@ function App() {
   const [vat, setVat] = useState(0);
 
   function increaseA() {
-    setA(a + 1)
+    setA(a + 1);
   }
 
   function increaseB() {
-    setVat(count + a)
+    setVat(count + a);
   }
 
   function onChangeHanlderPrice(event) {
@@ -23,22 +23,23 @@ function App() {
 
   function onChangeHanlderDiscount(event) {
     const discount = event.target.value;
-    setB(discount)
+    setB(discount);
     setVat((a - discount) * 0.07);
   }
-
 
   return (
     <>
       <div className="card">
         <label htmlFor="">Price: </label>
-      <input
+        <input
           type="number"
           style={{ fontSize: "20px" }}
           value={a}
           placeholder="Price"
           onChange={(event) => onChangeHanlderPrice(event)}
-        ></input><br /><br />
+        ></input>
+        <br />
+        <br />
         <label htmlFor="">Discount: </label>
         <input
           type="number"
