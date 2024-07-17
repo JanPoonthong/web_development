@@ -6,18 +6,10 @@ function App() {
   const quantityRef = useRef();
   const productRef = useRef();
   const [price, setPrice] = useState(accessoryData[0].price);
-  const [selectedItems, setSelectedItems] = useState([
-    { id: 1, name: "Mouse", price: 10, quantity: 2 },
-    { id: 2, name: "Keyboard", price: 20, quantity: 1 },
-  ])
+  const [selectedItems, setSelectedItems] = useState([{}])
 
-  const handleInput = () => {
-      quantityRef.current.value
-      productRef.current.value
-  };
-
-  const updatePrice = (event) => {
-    const productID = parseInt(event.target.value);
+  const handleSubmit = () => {
+    const productID = parseInt(productRef.current.value);
     const product = accessoryData.find(
       (accessory) => accessory.id === productID
     );
@@ -26,7 +18,16 @@ function App() {
       ...product,
       quantity: quantityRef.current.value
     }
+
     setSelectedItems(oldState => [...oldState, order])
+    setPrice(product.price);
+  };
+
+  const updatePrice = (event) => {
+    const productID = parseInt(event.target.value);
+    const product = accessoryData.find(
+      (accessory) => accessory.id === productID
+    );
     setPrice(product.price);
   };
 
@@ -49,7 +50,7 @@ function App() {
 
       <label>Quantity: </label>
       <input type="number" ref={quantityRef}></input>
-      <button onClick={handleInput}>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
 
       <DataTable data={selectedItems}></DataTable>
     </>
