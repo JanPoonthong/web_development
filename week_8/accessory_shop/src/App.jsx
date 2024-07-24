@@ -1,40 +1,69 @@
 import { useState, useRef } from "react";
 import accessoryData from "./accessory.json";
 import DataTable from "./components/DataTable";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import { Container, Row, Col } from "react-bootstrap";
 
 function App() {
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [filteredSelectedItems, setFilteredSelectedItems] = useState([]);
+
   const quantityRef = useRef();
   const productRef = useRef();
   const [price, setPrice] = useState(accessoryData[0].price);
-  const [selectedItems, setSelectedItems] = useState([]);
 
-  const handleSubmit = () => {
-    const productID = parseInt(productRef.current.value);
+  const handleSubmit = (e) => {
+    const productId = parseInt(productRef.current.value);
     const product = accessoryData.find(
-      (accessory) => accessory.id === productID
+      (accessory) => accessory.id === productId
     );
-
     const order = {
       ...product,
       quantity: quantityRef.current.value,
     };
-
-    setSelectedItems((oldState) => [...oldState, order]);
-    setPrice(product.price);
-  };
-
-  const updatePrice = (event) => {
-    const productID = parseInt(event.target.value);
-    const product = accessoryData.find(
-      (accessory) => accessory.id === productID
-    );
-    setPrice(product.price);
+    console.table(order);
+    selectedItems.push(order);
+    setSelectedItems([...selectedItems]);
+    setFilteredSelectedItems([...selectedItems]);
   };
 
   const deleteItemByIndex = (index) => {
     selectedItems.splice(index, 1);
     setSelectedItems([...selectedItems]);
+    setFilteredSelectedItems([...selectedItems]);
+  };
+
+  const filter = (keyword) => {
+    const filteredItems = selectedItems.filter((item) =>
+      item.name.includes(keyword)
+    );
+    setFilteredSelectedItems(filteredItems);
+  };
+
+  const updatePrice = (e) => {
+    const productId = parseInt(e.target.value);
+    const product = accessoryData.find(
+      (accessory) => accessory.id === productId
+    );
+    setPrice(product.price);
+  };
+
+  const sort = (sortingWay) => {
+    console.log("Helo");
+    console.log(filteredSelectedItems.sort());
+    if (sortingWay === "ascendingly") {
+      setFilteredSelectedItems([
+        ...filteredSelectedItems.sort(function (a, b) {
+          return a.name.localeCompare(b.name);
+        }),
+      ]);
+    } else if (sortingWay === "descendingly") {
+      setFilteredSelectedItems([
+        ...filteredSelectedItems.sort(function (a, b) {
+          return b.name.localeCompare(a.name);
+        }),
+      ]);
+    }
   };
 
   return (
@@ -66,7 +95,12 @@ function App() {
       </Container>
 
       <Container>
-        <DataTable data={selectedItems} onDelete={deleteItemByIndex} />
+        <DataTable
+          data={filteredSelectedItems}
+          onDelete={deleteItemByIndex}
+          onFilter={filter}
+          onSort={sort}
+        />
       </Container>
     </>
   );
