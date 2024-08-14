@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useContext } from 'react';
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import { TotalPriceContext } from "../context";
+import { useEffect } from "react";
 
 const DataTable = ({ data, onDelete, onFilter, onSort }) => {
   const sRef = React.useRef();
+
+  const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
+    console.log(totalPrice)
+  let sum = data.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+
+  useEffect(() => {
+    setTotalPrice(sum);
+  });
 
   const handleSearch = () => {
     const keyword = sRef.current.value;
@@ -32,7 +44,6 @@ const DataTable = ({ data, onDelete, onFilter, onSort }) => {
         <i className="bi bi-search"></i> Search
       </Button>
       <br />
-
       <span>Sort</span>
       <Button onClick={sortAscendingly} variant="outline-dark">
         <i className="bi bi-arrow-up-short"></i>
