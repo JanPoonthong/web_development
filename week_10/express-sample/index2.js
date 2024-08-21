@@ -61,7 +61,7 @@ var users = [{ name: "tobi" }, { name: "loki" }, { name: "jane" }];
 var userRepos = {
   tobi: [repos[0], repos[1]],
   loki: [repos[1]],
-  jane: [repos[2]], 
+  jane: [repos[2]],
 };
 
 // we now can assume the api key is valid,

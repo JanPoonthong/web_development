@@ -12,13 +12,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/echo", (req, res) => {
-  const name = req.query["name"]
+  const name = req.query["name"];
   res.send(`Hello ${name}!`);
 });
 
 app.post("/echo", (req, res) => {
   console.log(req.body);
-  const name = req.body.name
+  const name = req.body.name;
   res.send(`Hello ${name}!`);
 });
 

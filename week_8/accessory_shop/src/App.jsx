@@ -15,7 +15,7 @@ function App() {
   const handleSubmit = (e) => {
     const productId = parseInt(productRef.current.value);
     const product = accessoryData.find(
-      (accessory) => accessory.id === productId
+      (accessory) => accessory.id === productId,
     );
     const order = {
       ...product,
@@ -35,7 +35,7 @@ function App() {
 
   const filter = (keyword) => {
     const filteredItems = selectedItems.filter((item) =>
-      item.name.includes(keyword)
+      item.name.includes(keyword),
     );
     setFilteredSelectedItems(filteredItems);
   };
@@ -43,7 +43,7 @@ function App() {
   const updatePrice = (e) => {
     const productId = parseInt(e.target.value);
     const product = accessoryData.find(
-      (accessory) => accessory.id === productId
+      (accessory) => accessory.id === productId,
     );
     setPrice(product.price);
   };

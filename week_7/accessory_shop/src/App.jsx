@@ -12,7 +12,7 @@ function App() {
   const handleSubmit = () => {
     const productID = parseInt(productRef.current.value);
     const product = accessoryData.find(
-      (accessory) => accessory.id === productID
+      (accessory) => accessory.id === productID,
     );
 
     const order = {
@@ -27,7 +27,7 @@ function App() {
   const updatePrice = (event) => {
     const productID = parseInt(event.target.value);
     const product = accessoryData.find(
-      (accessory) => accessory.id === productID
+      (accessory) => accessory.id === productID,
     );
     setPrice(product.price);
   };

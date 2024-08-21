@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -9,7 +9,7 @@ const DataTable = ({ data, onDelete, onFilter, onSort }) => {
   const sRef = React.useRef();
 
   const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
-    console.log(totalPrice)
+  console.log(totalPrice);
   let sum = data.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);

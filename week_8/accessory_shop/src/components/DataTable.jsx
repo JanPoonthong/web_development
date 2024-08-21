@@ -32,7 +32,6 @@ const DataTable = ({ data, onDelete, onFilter, onSort }) => {
         <i className="bi bi-search"></i> Search
       </Button>
       <br />
-
       <span>Sort</span>
       <Button onClick={sortAscendingly} variant="outline-dark">
         <i className="bi bi-arrow-up-short"></i>
